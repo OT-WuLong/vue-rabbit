@@ -8,7 +8,7 @@ const httpInstance = axios.create({
 //拦截器
 httpInstance.interceptors.request.use(config => {
   return config
-}, e => Promise.reject((e)))
+}, e => Promise.reject(e))
 
 httpInstance.interceptors.response.use(res => res.data, e => {
   return Promise.reject(e)

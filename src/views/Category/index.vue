@@ -30,7 +30,7 @@ const { categoryData } = useCategory()
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in categoryData.children" :key="i.id">
-            <RouterLink :to="`/category/${i.id}`"> <!-- 点击跳转到二级路由页面 -->
+            <RouterLink :to="`/category/sub/${i.id}`"> <!-- 点击跳转到二级路由页面 -->
               <img :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>

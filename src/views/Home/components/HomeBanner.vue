@@ -12,8 +12,6 @@ onMounted(() => {
 })
 </script>
 
-
-
 <template>
   <div class="home-banner">
     <el-carousel height="500px">
@@ -23,8 +21,6 @@ onMounted(() => {
     </el-carousel>
   </div>
 </template>
-
-
 
 <style scoped lang='scss'>
 .home-banner {
