@@ -98,7 +98,11 @@ const skuChange = (sku) => {
               <!-- 数据组件 -->
 
               <!-- 按钮组件 -->
-
+              <div>
+                <el-button size="large" class="btn">
+                  加入购物车
+                </el-button>
+              </div>
 
             </div>
           </div>
