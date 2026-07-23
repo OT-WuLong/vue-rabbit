@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 
 import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/el-message.css'
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/userStore';
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -27,8 +27,8 @@ const rules = {
   agree: [
     {
       validator: (rule, value, callback) => {
-        if (value){ callback() }
-        else{ callback(new Error('请勾选协议'))}
+        if (value) { callback() }
+        else { callback(new Error('请勾选协议')) }
       }
     }
   ]
@@ -41,9 +41,9 @@ const doLogin = () => {
   formRef.value.validate(async (valid) => {
     if (valid) {
 
-        await userStore.getUserInfo({ account, password })
-        ElMessage({ type: 'success', message: '登录成功' })
-        router.replace({ path: '/' })
+      await userStore.getUserInfo({ account, password })
+      ElMessage({ type: 'success', message: '登录成功' })
+      router.replace({ path: '/' })
     }
   })
 }
@@ -77,12 +77,12 @@ const doLogin = () => {
               <el-form-item prop="password" label="密码">
                 <el-input v-model="form.password" />
               </el-form-item>
-              <el-form-item prop="agree" label-width="22px" >
+              <el-form-item prop="agree" label-width="22px">
                 <el-checkbox size="large" v-model="form.agree">
                   我已同意隐私条款和服务条款
                 </el-checkbox>
               </el-form-item>
-              <el-button size="large" class="subBtn" @click="doLogin" >点击登录</el-button>
+              <el-button size="large" class="subBtn" @click="doLogin">点击登录</el-button>
             </el-form>
           </div>
         </div>

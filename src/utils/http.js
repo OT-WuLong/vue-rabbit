@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/el-message.css'
 import router from '@/router';
 
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/userStore';
 
 const httpInstance = axios.create({
   baseURL: '/api',
@@ -14,21 +14,21 @@ const httpInstance = axios.create({
 httpInstance.interceptors.request.use(config => {
   const userStore = useUserStore()
   const token = userStore.userInfo.token
+  console.log('[HTTP]', config.url, '| token:', token ? '✅ 有' : '❌ 无', '| userInfo:', JSON.stringify(userStore.userInfo))
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
-
   return config
-}, e => Promise.reject(e))
+})
 
 httpInstance.interceptors.response.use(res => res.data, e => {
   const userStore = useUserStore()
   ElMessage({
     type: 'warning',
-    message:e.response.data.message
+    message: e.response.data.message
   })
 
-  if (e.response.status === '401') {
+  if (e.response.status === 401) {
     userStore.clearuserInfo()
     router.replace('/login')
   }
