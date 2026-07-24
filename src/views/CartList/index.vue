@@ -1,7 +1,11 @@
 <script setup>
+import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cartStore'
+import { useUserStore } from '@/stores/userStore'
+import { ElMessage } from 'element-plus'
+const router = useRouter()
 const cartStore = useCartStore()
-
+const userStore = useUserStore()
 // 单选回调
 const singleCheck = (i, selected) => {
   // store cartList 数组 无法知道要修改谁的选中状态？
@@ -12,6 +16,15 @@ const singleCheck = (i, selected) => {
 
 const allCheck = (selected) => {
   cartStore.allCheck(selected)
+}
+
+const checkOut = () => {
+  if (userStore.userInfo.token) {
+    router.push('/checkout')
+  } else {
+    router.push('/login')
+    ElMessage.warning('请先登录')
+  }
 }
 </script>
 
@@ -88,7 +101,7 @@ const allCheck = (selected) => {
           <span class="red">¥ {{ cartStore.selectedPrice.toFixed(2) }} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" @click="$router.push('/checkout')">下单结算</el-button>
+          <el-button size="large" type="primary" @click="checkOut">下单结算</el-button>
         </div>
       </div>
     </div>
